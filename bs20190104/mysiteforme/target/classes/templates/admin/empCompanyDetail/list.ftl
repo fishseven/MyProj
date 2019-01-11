@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>qs--${site.name}</title>
+    <title>企业明细--${site.name}</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -19,26 +19,19 @@
 </head>
 <body class="childrenBody">
 <fieldset class="layui-elem-field">
-  <legend>qs检索</legend>
+  <legend>企业明细检索</legend>
   <div class="layui-field-box">
     <form class="layui-form" id="searchForm">
     <div class="layui-inline" style="margin-left: 15px">
-            <label>qq:</label>
+            <label>企业明细:</label>
                 <div class="layui-input-inline">
-                <input type="text" value="" name="s_qqq" placeholder="请输入qq" class="layui-input search_input">
+                <input type="text" value="" name="s_companyName" placeholder="请输入企业明细" class="layui-input search_input">
                 </div>
     </div>
     <div class="layui-inline" style="margin-left: 15px">
-            <label>类型:</label>
+            <label>类型 :</label>
                 <div class="layui-input-inline">
-                <select name="s_type">
-                    <option value="" selected="">请选择类型</option>
-                    <@my type="aasq_type">
-                    <#list result as r>
-                    <option value="${r.value}" >${r.label}</option>
-                    </#list>
-                    </@my>
-                </select>
+                <input type="text" value="" name="s_companyType" placeholder="请输入类型 " class="layui-input search_input">
                 </div>
     </div>
         <div class="layui-inline">
@@ -48,22 +41,13 @@
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
         <div class="layui-inline">
-            <a class="layui-btn layui-btn-normal" data-type="addAasq">添加qs</a>
+            <a class="layui-btn layui-btn-normal" data-type="addEmpCompanyDetail">添加企业明细</a>
         </div>
     </form>
   </div>
 </fieldset>
 <div class="layui-form users_list">
     <table class="layui-table" id="test" lay-filter="demo"></table>
-    <script type="text/html" id="type">
-        <@my type="aasq_type">
-        <#list result as r>
-        {{#  if(d.type == ${r.value}){ }}
-        <span>${r.label}</span>
-        {{#  } }}
-        </#list>
-        </@my>
-    </script>
     <script type="text/html" id="userStatus">
         <!-- 这里的 checked 的状态只是演示 -->
         {{#  if(d.delFlag == false){ }}
@@ -95,12 +79,12 @@
             var data = obj.data;
             if(obj.event === 'edit'){
                 var editIndex = layer.open({
-                    title : "编辑qs",
+                    title : "编辑企业明细",
                     type : 2,
-                    content : "${base}/admin/aasq/edit?id="+data.id,
+                    content : "${base}/admin/empCompanyDetail/edit?id="+data.id,
                     success : function(layero, index){
                         setTimeout(function(){
-                            layer.tips('点击此处返回qs列表', '.layui-layer-setwin .layui-layer-close', {
+                            layer.tips('点击此处返回企业明细列表', '.layui-layer-setwin .layui-layer-close', {
                                 tips: 3
                             });
                         },500);
@@ -113,9 +97,9 @@
                 layer.full(editIndex);
             }
             if(obj.event === "del"){
-                layer.confirm("你确定要删除该qs么？",{btn:['是的,我确定','我再想想']},
+                layer.confirm("你确定要删除该企业明细么？",{btn:['是的,我确定','我再想想']},
                         function(){
-                            $.post("${base}/admin/aasq/delete",{"id":data.id},function (res){
+                            $.post("${base}/admin/empCompanyDetail/delete",{"id":data.id},function (res){
                                 if(res.success){
                                     layer.msg("删除成功",{time: 1000},function(){
                                         location.reload();
@@ -132,7 +116,7 @@
 
         var t = {
             elem: '#test',
-            url:'${base}/admin/aasq/list',
+            url:'${base}/admin/empCompanyDetail/list',
             method:'post',
             page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
                 layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
@@ -145,9 +129,12 @@
             cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             cols: [[
                 {type:'checkbox'},
-                {field:'qqq', title: 'qq'},
-                {field:'type', title: '类型',templet:'#type'},
-                {field:'delFlag',    title: 'qs状态',width:'12%',templet:'#userStatus'},
+                {field:'companyName', title: '企业明细'},
+                {field:'companyAddr', title: '企业地址'},
+                {field:'companyPhone', title: '企业电话'},
+                {field:'companyType', title: '类型 '},
+                {field:'companyRemark', title: '备注'},
+                {field:'delFlag',    title: '企业明细状态',width:'12%',templet:'#userStatus'},
                 {field:'createDate',  title: '创建时间',width:'15%',templet:'<div>{{ layui.laytpl.toDateString(d.createDate) }}</div>',unresize: true}, //单元格内容水平居中
                 {fixed: 'right', title:'操作',  width: '15%', align: 'center',toolbar: '#barDemo'}
             ]]
@@ -155,14 +142,14 @@
         table.render(t);
 
         var active={
-            addAasq : function(){
+            addEmpCompanyDetail : function(){
                 var addIndex = layer.open({
-                    title : "添加qs",
+                    title : "添加企业明细",
                     type : 2,
-                    content : "${base}/admin/aasq/add",
+                    content : "${base}/admin/empCompanyDetail/add",
                     success : function(layero, addIndex){
                         setTimeout(function(){
-                            layer.tips('点击此处返回qs列表', '.layui-layer-setwin .layui-layer-close', {
+                            layer.tips('点击此处返回企业明细列表', '.layui-layer-setwin .layui-layer-close', {
                                 tips: 3
                             });
                         },500);

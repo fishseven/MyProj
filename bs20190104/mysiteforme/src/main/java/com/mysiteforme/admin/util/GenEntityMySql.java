@@ -64,7 +64,7 @@ public class GenEntityMySql {
         strategy.setTablePrefix(new String[] { ""});// 此处可以修改为您的表前缀
 
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] { "aasq"}); // 需要生成的表
+        strategy.setInclude(new String[] { "emp_company_detail"}); // 需要生成的表
 //        strategy.setExclude(new String[]{"sys_user_role","sys_role_menu","sys_group_ur"}); // 排除生成的表
         // 自定义实体父类
         strategy.setSuperEntityClass("com.mysiteforme.admin.base.DataEntity");
@@ -97,39 +97,39 @@ public class GenEntityMySql {
         
 
 //        // 注入自定义配置，可以在 VM 中使用 cfg.abc 【可无】
-//        InjectionConfig cfg = new InjectionConfig() {
-//            @Override
-//            public void initMap() {
-//                Map<String, Object> map = new HashMap<String, Object>();
-//                map.put("abc", this.getConfig().getGlobalConfig().getAuthor() + "-mp");
-//                this.setMap(map);
-//            }
-//        };
-//        // 自定义 xxList.jsp 生成
-//        List<FileOutConfig> focList = Lists.newArrayList();
-//        focList.add(new FileOutConfig("/templates/vm/list.jsp.vm") {
-//            @Override
-//            public String outputFile(TableInfo tableInfo) {
-//                // 自定义输入文件名称
-//                return "D://mysite/" + tableInfo.getEntityPath() + "/list.ftl";
-//            }
-//        });
-//        focList.add(new FileOutConfig("/templates/vm/add.jsp.vm") {
-//            @Override
-//            public String outputFile(TableInfo tableInfo) {
-//                // 自定义输入文件名称
-//                return "D://mysite/" + tableInfo.getEntityPath() + "/add.ftl";
-//            }
-//        });
-//        focList.add(new FileOutConfig("/templates/vm/edit.jsp.vm") {
-//            @Override
-//            public String outputFile(TableInfo tableInfo) {
-//                // 自定义输入文件名称
-//                return "D://mysite/" + tableInfo.getEntityPath() + "/edit.ftl";
-//            }
-//        });
-//        cfg.setFileOutConfigList(focList);
-//        mpg.setCfg(cfg);
+        InjectionConfig cfg = new InjectionConfig() {
+            @Override
+            public void initMap() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("abc", this.getConfig().getGlobalConfig().getAuthor() + "-mp");
+                this.setMap(map);
+            }
+        };
+        // 自定义 xxList.jsp 生成
+        List<FileOutConfig> focList = Lists.newArrayList();
+        focList.add(new FileOutConfig("/templates/vm/list.jsp.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输入文件名称
+                return "D://mysite/" + tableInfo.getEntityPath() + "/list.ftl";
+            }
+        });
+        focList.add(new FileOutConfig("/templates/vm/add.jsp.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输入文件名称
+                return "D://mysite/" + tableInfo.getEntityPath() + "/add.ftl";
+            }
+        });
+        focList.add(new FileOutConfig("/templates/vm/edit.jsp.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输入文件名称
+                return "D://mysite/" + tableInfo.getEntityPath() + "/edit.ftl";
+            }
+        });
+        cfg.setFileOutConfigList(focList);
+        mpg.setCfg(cfg);
 
         // 关闭默认 xml 生成，调整生成 至 根目录
         TemplateConfig tc = new TemplateConfig();

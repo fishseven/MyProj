@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mysiteforme.admin.dao.EmpCompanyDetailDao" >
+    <resultMap type="com.mysiteforme.admin.entity.emp.EmpCompanyDetail" id="EmpCompanyDetailMap">
+        <id property="id" column="id"/>
+        <result property="companyName" column="company_name"/>
+        <result property="companyAddr" column="company_addr"/>
+        <result property="companyPhone" column="company_phone"/>
+        <result property="companyType" column="company_type"/>
+        <result property="companyRemark"  column="company_remark"/>
+    </resultMap>
+
+        <select id="selectById" resultMap="EmpCompanyDetailMap">
+
+            select * from emp_company_detail
+
+        </select>
+</mapper>

@@ -1,8 +1,9 @@
 package com.mysiteforme.admin;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mysiteforme.admin.dao.EmpCompanyDetailDao;
 import com.mysiteforme.admin.dao.MenuDao;
-import com.mysiteforme.admin.entity.Menu;
+import com.mysiteforme.admin.entity.emp.EmpCompanyDetail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -21,10 +22,17 @@ public class MysiteformeApplicationTests {
 
 	@Autowired
 	private MenuDao menuDao;
+	@Autowired
+	private EmpCompanyDetailDao dao;
+//	@Test
+//	public void contextLoads() {
+//		List<Menu> list = menuDao.getMenus(null);
+//		LOGGER.info(JSONObject.toJSONString(list));
+//	}
 
 	@Test
-	public void contextLoads() {
-		List<Menu> list = menuDao.getMenus(null);
+	public void selectById() {
+		List<EmpCompanyDetail>  list = dao.selectById();
 		LOGGER.info(JSONObject.toJSONString(list));
 	}
 

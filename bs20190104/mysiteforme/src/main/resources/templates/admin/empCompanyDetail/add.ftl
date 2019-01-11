@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>qs添加--${site.name}</title>
+    <title>企业明细添加--${site.name}</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -32,29 +32,43 @@
 <body class="childrenBody">
 <form class="layui-form" style="width:80%;">
     <div class="layui-form-item">
-        <label class="layui-form-label">qq</label>
+        <label class="layui-form-label">企业明细</label>
         <div class="layui-input-block">
 
-            <input  type="text"  class="layui-input" name="qqq"  placeholder="请输入qq">
+            <input  type="text"  class="layui-input" name="companyName"  placeholder="请输入企业明细">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">类型</label>
+        <label class="layui-form-label">企业地址</label>
         <div class="layui-input-block">
 
-            <select name="type" >
-                <option value="" selected="">请选择类型</option>
+            <input  type="text"  class="layui-input" name="companyAddr"  placeholder="请输入企业地址">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">企业电话</label>
+        <div class="layui-input-block">
 
-                <option value="1" >1</option>
-                <option value="2" >2</option>
+            <input  type="text"  class="layui-input" name="companyPhone"  placeholder="请输入企业电话">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">类型 </label>
+        <div class="layui-input-block">
 
+            <input  type="text"  class="layui-input" name="companyType"  placeholder="请输入类型 ">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
 
-            </select>
+            <input  type="text"  class="layui-input" name="companyRemark"  placeholder="请输入备注">
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="addAasq">立即提交</button>
+            <button class="layui-btn" lay-submit="" lay-filter="addEmpCompanyDetail">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -67,15 +81,15 @@
                 layer = layui.layer;
 
 
-        form.on("submit(addAasq)",function(data){
+        form.on("submit(addEmpCompanyDetail)",function(data){
 
             var loadIndex = layer.load(2, {
                 shade: [0.3, '#333']
             });
-            $.post("${base}/admin/aasq/add",data.field,function(res){
+            $.post("${base}/admin/empCompanyDetail/add",data.field,function(res){
                 layer.close(loadIndex);
                 if(res.success){
-                    parent.layer.msg("qs添加成功！",{time:1000},function(){
+                    parent.layer.msg("企业明细添加成功！",{time:1000},function(){
                         parent.layer.close(parent.addIndex);
                         //刷新父页面
                         parent.location.reload();

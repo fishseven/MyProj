@@ -28,6 +28,19 @@
                 <input type="text" value="" name="s_qqq" placeholder="请输入qq" class="layui-input search_input">
                 </div>
     </div>
+    <div class="layui-inline" style="margin-left: 15px">
+            <label>类型:</label>
+                <div class="layui-input-inline">
+                <select name="s_type">
+                    <option value="" selected="">请选择类型</option>
+                    <@my type="aasq_type">
+                    <#list result as r>
+                    <option value="${r.value}" >${r.label}</option>
+                    </#list>
+                    </@my>
+                </select>
+                </div>
+    </div>
         <div class="layui-inline">
             <a class="layui-btn" lay-submit="" lay-filter="searchForm">查询</a>
         </div>
@@ -42,6 +55,15 @@
 </fieldset>
 <div class="layui-form users_list">
     <table class="layui-table" id="test" lay-filter="demo"></table>
+    <script type="text/html" id="type">
+        <@my type="aasq_type">
+        <#list result as r>
+        {{#  if(d.type == ${r.value}){ }}
+        <span>${r.label}</span>
+        {{#  } }}
+        </#list>
+        </@my>
+    </script>
     <script type="text/html" id="userStatus">
         <!-- 这里的 checked 的状态只是演示 -->
         {{#  if(d.delFlag == false){ }}
@@ -124,6 +146,7 @@
             cols: [[
                 {type:'checkbox'},
                 {field:'qqq', title: 'qq'},
+                {field:'type', title: '类型',templet:'#type'},
                 {field:'delFlag',    title: 'qs状态',width:'12%',templet:'#userStatus'},
                 {field:'createDate',  title: '创建时间',width:'15%',templet:'<div>{{ layui.laytpl.toDateString(d.createDate) }}</div>',unresize: true}, //单元格内容水平居中
                 {fixed: 'right', title:'操作',  width: '15%', align: 'center',toolbar: '#barDemo'}
